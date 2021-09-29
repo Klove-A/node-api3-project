@@ -32,9 +32,13 @@ router.post('/', validateUser, (req, res, next) => {
 });
 
 router.put('/:id', validateUserId, validateUser, (req, res, next) => {
-  User.update(req.params.id, { name: req.name })
-    .then(updatedUser => {
-      res.json(updatedUser)
+  const { id } = req.params;
+  User.update(id, { name: req.name })
+    .then(() => {
+      return User.getById(id)
+    })
+    .then(user => {
+      res.json(user)
     })
     .catch(next)
 });
