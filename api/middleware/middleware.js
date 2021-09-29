@@ -1,5 +1,4 @@
 const User = require("../users/users-model");
-const Post = require("../posts/posts-model");
 
 function logger(req, res, next) {
   console.log(
@@ -27,7 +26,6 @@ async function validateUserId(req, res, next) {
 };
 
 function validateUser(req, res, next) {
-  console.log("validateUser");
   const { name } = req.body;
   if (!name || typeof name !== 'string' || !name.trim()) {
     res.status(400).json({
@@ -40,12 +38,20 @@ function validateUser(req, res, next) {
 };
 
 function validatePost(req, res, next) {
-  console.log("validatePost");
-  next();
+  const { text } = req.body;
+  if (!text || typeof text !== 'string' || !text.trim()) {
+    res.status(400).json({
+      message: "missing required text field"
+    });
+  } else {
+    req.text = text.trim();
+    next();
+  };
 };
 
 module.exports = {
   logger,
   validateUserId,
   validateUser,
+  validatePost
 };
