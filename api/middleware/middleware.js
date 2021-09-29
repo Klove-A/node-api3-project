@@ -6,17 +6,21 @@ function logger(req, res, next) {
 };
 
 function validateUserId(req, res, next) {
-  // DO YOUR MAGIC
-}
+  console.log("validateUserId");
+  next();
+};
 
 function validateUser(req, res, next) {
-  // DO YOUR MAGIC
-}
+  console.log("validateUser");
+  next();
+};
 
 function validatePost(req, res, next) {
-  // DO YOUR MAGIC
-}
+  console.log("validatePost");
+  next();
+};
 
 module.exports = {
   logger,
-}
+  validateUserId,
+};
