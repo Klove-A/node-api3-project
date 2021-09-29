@@ -25,10 +25,10 @@ router.get('/:id', validateUserId, (req, res) => {
 
 router.post('/', validateUser, (req, res, next) => {
   User.insert({ name: req.name })
-  .then(newUser => {
-    res.status(201).json(newUser)
-  })
-  .catch(next)
+    .then(newUser => {
+      res.status(201).json(newUser)
+    })
+    .catch(next)
 });
 
 router.put('/:id', validateUserId, validateUser, (req, res, next) => {
@@ -45,10 +45,10 @@ router.put('/:id', validateUserId, validateUser, (req, res, next) => {
 
 router.delete('/:id', validateUserId, (req, res, next) => {
   User.remove(req.params.id)
-  .then(() => {
-    res.status(200).json(req.user)
-  })
-  .catch(next)
+    .then(() => {
+      res.status(200).json(req.user)
+    })
+    .catch(next)
 });
 
 router.get('/:id/posts', validateUserId, (req, res, next) => {
