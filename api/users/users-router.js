@@ -14,9 +14,9 @@ const router = express.Router();
 router.get('/', (req, res, next) => {
   User.get()
     .then(users => {
-      res.json(users);
+      res.json(users)
     })
-    .catch(next);
+    .catch(next)
 });
 
 router.get('/:id', validateUserId, (req, res) => {
@@ -43,9 +43,12 @@ router.put('/:id', validateUserId, validateUser, (req, res, next) => {
     .catch(next)
 });
 
-router.delete('/:id', validateUserId, (req, res) => {
-  // RETURN THE FRESHLY DELETED USER OBJECT
-  // this needs a middleware to verify user id
+router.delete('/:id', validateUserId, (req, res, next) => {
+  User.remove(req.params.id)
+  .then(() => {
+    res.status(200).json(req.user)
+  })
+  .catch(next)
 });
 
 router.get('/:id/posts', validateUserId, (req, res) => {
