@@ -28,7 +28,15 @@ async function validateUserId(req, res, next) {
 
 function validateUser(req, res, next) {
   console.log("validateUser");
-  next();
+  const { name } = req.body;
+  if (!name || typeof name !== 'string' || !name.trim()) {
+    res.status(400).json({
+      message: "missing required name field"
+    });
+  } else {
+    req.name = name.trim();
+    next();
+  };
 };
 
 function validatePost(req, res, next) {
